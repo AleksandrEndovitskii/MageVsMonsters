@@ -1,5 +1,7 @@
 # MageVsMonsters
 
+https://docs.google.com/document/d/1yWIRRGxtG-OXTr5zsnPVCFVaoZewpERXGDOAROFw9xI/edit
+
 1) There is a mage on the stage (with health, defense and movement speed)
 2) The mage must be able to move around the stage, turn (using the arrow keys on the keyboard) and be able to release spells (X button)
 3) The mage’s spells must be of several types (with different appearance and damage)
