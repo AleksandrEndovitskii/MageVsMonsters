@@ -11,7 +11,7 @@
 4) When a spell hits a monster, its health should decrease according to the damage of the spell and the defense of the monster
 5) In case of a collision with a mage, his health should decrease according to the mage’s defense and damage from the monster
 -
-The size of the stage must be limited.
-Various obstacles can be placed on the stage(optional).
-Appearance can be indicated by a picture or color.
-Damage calculation: health=health-damage*defense(0...1).
+- The size of the stage must be limited.
+- Various obstacles can be placed on the stage(optional).
+- Appearance can be indicated by a picture or color.
+- Damage calculation: health=health-damage*defense(0...1).
