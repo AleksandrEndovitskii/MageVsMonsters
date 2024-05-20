@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections;
+using MageVsMonsters.Models;
+using MageVsMonsters.Views;
+using MageVsMonsters.Views.Extensions;
 using UnityEngine;
 
 namespace MageVsMonsters.Components.Shooting
@@ -8,10 +11,10 @@ namespace MageVsMonsters.Components.Shooting
     {
 #pragma warning disable 0649
         [SerializeField]
-        private GameObject bulletPrefab;
+        private ProjectileView _projectileViewPrefab;
 #pragma warning restore 0649
 
-        private float _bulletForce;
+        private float _projectileSpeed;
 
         private float _secondsCount;
 
@@ -19,7 +22,7 @@ namespace MageVsMonsters.Components.Shooting
 
         private void Awake()
         {
-            _bulletForce = 5f;
+            _projectileSpeed = 5f;
 
             _secondsCount = 1f;
 
@@ -46,15 +49,13 @@ namespace MageVsMonsters.Components.Shooting
 
         public void Shoot()
         {
-            var bulletInstance = Instantiate(
-                bulletPrefab,
-                this.gameObject.transform.position,
-                this.gameObject.transform.rotation);
+            var projectileModel = new ProjectileModel();
+            var projectileViewInstance = Instantiate(_projectileViewPrefab, this.gameObject.transform.position, this.gameObject.transform.rotation);
+            projectileViewInstance.Model = projectileModel;
 
-            var bulletInstanceRigidbody = bulletInstance.GetComponent<Rigidbody>();
-
+            var bulletInstanceRigidbody = projectileViewInstance.GetComponent<Rigidbody>();
             bulletInstanceRigidbody.AddForce(
-                this.gameObject.transform.forward * _bulletForce,
+                this.gameObject.transform.forward * _projectileSpeed,
                 ForceMode.Impulse);
         }
 
