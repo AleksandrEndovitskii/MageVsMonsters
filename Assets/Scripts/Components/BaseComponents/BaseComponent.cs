@@ -2,17 +2,17 @@
 {
     public abstract class BaseComponent : BaseMonoBehaviour
     {
-        private void Awake()
+        private async void Awake()
         {
-            Initialize();
+            await Initialize();
 
-            Subscribe();
+            await Subscribe();
         }
-        private void OnDestroy()
+        private async void OnDestroy()
         {
-            UnSubscribe();
+            await UnSubscribe();
 
-            UnInitialize();
+            await UnInitialize();
         }
     }
 }

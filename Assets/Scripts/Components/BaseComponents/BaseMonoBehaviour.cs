@@ -1,19 +1,25 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace MageVsMonsters.Components.BaseComponents
 {
     public abstract class BaseMonoBehaviour : MonoBehaviour
     {
-        public void ReInitialize()
+        public async UniTask ReInitialize()
         {
-            UnInitialize();
-            Initialize();
+            await UnInitialize();
+            await Initialize();
+        }
+        public async UniTask ReSubscribe()
+        {
+            await UnSubscribe();
+            await Subscribe();
         }
 
-        protected abstract void Initialize();
-        protected abstract void UnInitialize();
+        protected abstract UniTask Initialize();
+        protected abstract UniTask UnInitialize();
 
-        protected abstract void Subscribe();
-        protected abstract void UnSubscribe();
+        protected abstract UniTask Subscribe();
+        protected abstract UniTask UnSubscribe();
     }
 }
