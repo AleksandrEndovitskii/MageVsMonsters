@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using MageVsMonsters.Extensions;
+using MageVsMonsters.Helpers;
 using MageVsMonsters.Models;
 using MageVsMonsters.Views;
 using MageVsMonsters.Views.Extensions;
+using Newtonsoft.Json;
 using UnityEngine;
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
@@ -47,6 +49,21 @@ namespace MageVsMonsters.Managers
         }
         protected override async UniTask UnSubscribe()
         {
+        }
+
+        public void Register(EnemyView enemyViewInstance)
+        {
+            Debug.Log($"{this.GetType().Name}.{ReflectionHelper.GetCallerMemberName()}"
+                      + $"\n{nameof(enemyViewInstance)}.{nameof(enemyViewInstance.Model)} == {JsonConvert.SerializeObject(enemyViewInstance.Model)}");
+
+            EnemyViewInstances.Add(enemyViewInstance);
+        }
+        public void UnRegister(EnemyView enemyViewInstance)
+        {
+            Debug.Log($"{this.GetType().Name}.{ReflectionHelper.GetCallerMemberName()}"
+                      + $"\n{nameof(enemyViewInstance)}.{nameof(enemyViewInstance.Model)} == {JsonConvert.SerializeObject(enemyViewInstance.Model)}");
+
+            EnemyViewInstances.Remove(enemyViewInstance);
         }
     }
 }
