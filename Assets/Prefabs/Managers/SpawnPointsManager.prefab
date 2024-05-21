@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnPointComponentPrefabs:
-  - {fileID: 7231338873627418666, guid: 738ae9a515aabea4d91ad9a29ebb50bb, type: 3}
   - {fileID: 2208510218001331182, guid: 35ac539929050c3459221ef7ba3d12f7, type: 3}
+  - {fileID: 7231338873627418666, guid: 738ae9a515aabea4d91ad9a29ebb50bb, type: 3}

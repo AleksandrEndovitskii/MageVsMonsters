@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creatureView: {fileID: 6922053890706012445, guid: 8d6919077ef06e94cb380e1748975a09,
     type: 3}
-  spawnCount: 1
+  spawnCount: 0

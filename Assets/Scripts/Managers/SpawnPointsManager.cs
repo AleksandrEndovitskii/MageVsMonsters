@@ -27,7 +27,6 @@ namespace MageVsMonsters.Managers
 
             IsInitialized = true;
         }
-
         protected override async UniTask UnInitialize()
         {
             IsInitialized = false;
@@ -36,9 +35,13 @@ namespace MageVsMonsters.Managers
         protected override async UniTask Subscribe()
         {
         }
-
         protected override async UniTask UnSubscribe()
         {
+        }
+
+        public SpawnPointComponent GetSpawnPointComponent<T>()
+        {
+            return _spawnPointComponentInstances[0];
         }
     }
 }

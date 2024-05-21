@@ -28,11 +28,11 @@ namespace MageVsMonsters.Components.SpawnPoints
 
         protected override async UniTask Initialize()
         {
-            StartSpawning();
         }
         protected override async UniTask UnInitialize()
         {
         }
+
         protected override async UniTask Subscribe()
         {
         }
