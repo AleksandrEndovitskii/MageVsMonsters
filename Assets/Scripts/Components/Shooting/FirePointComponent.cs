@@ -61,7 +61,7 @@ namespace MageVsMonsters.Components.Shooting
 
         public void Shoot()
         {
-            var projectileModel = new ProjectileModel();
+            var projectileModel = new ProjectileModel(10);
             var projectileViewInstance = Instantiate(_projectileViewPrefab, this.gameObject.transform.position, this.gameObject.transform.rotation);
             //var projectileViewInstance = Instantiate(_projectileViewPrefab); // TODO: set parent to ProjectilesManager.Instance.gameObject.transform
             projectileViewInstance.Model = projectileModel;

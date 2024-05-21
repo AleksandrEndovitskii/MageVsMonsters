@@ -20,7 +20,7 @@ namespace MageVsMonsters.Managers
             await UniTask.WaitUntil(() => SpawnPointsManager.Instance != null &&
                                           SpawnPointsManager.Instance.IsInitialized);
 
-            var playerModel = new PlayerModel();
+            var playerModel = new PlayerModel(100);
             PlayerViewInstance = (PlayerView)this.InstantiateElement(playerModel, _playerViewPrefab, this.gameObject.transform);
             var spawnPointComponent = SpawnPointsManager.Instance.GetSpawnPointComponent<PlayerView>();
             // TODO: move to view

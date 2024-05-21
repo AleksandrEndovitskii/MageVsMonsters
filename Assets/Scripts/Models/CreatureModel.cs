@@ -8,7 +8,7 @@ namespace MageVsMonsters.Models
             set;
         }
 
-        protected CreatureModel()
+        public CreatureModel()
         {
             Health = 0;
         }
