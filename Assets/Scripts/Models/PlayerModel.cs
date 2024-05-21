@@ -1,6 +1,6 @@
 namespace MageVsMonsters.Models
 {
-    public class PlayerModel : CharacterModel
+    public class PlayerModel : CreatureModel
     {
     }
 }

@@ -1,6 +1,6 @@
 namespace MageVsMonsters.Views
 {
-    public class EnemyView : CharacterView
+    public class EnemyView : CreatureView
     {
     }
 }

@@ -1,6 +1,6 @@
 namespace MageVsMonsters.Models
 {
-    public class CharacterModel : IModel
+    public class CreatureModel : IModel
     {
         public int Health
         {
@@ -8,11 +8,11 @@ namespace MageVsMonsters.Models
             set;
         }
 
-        protected CharacterModel()
+        protected CreatureModel()
         {
             Health = 0;
         }
-        public CharacterModel(int health) :
+        public CreatureModel(int health) :
             this()
         {
             Health = health;
