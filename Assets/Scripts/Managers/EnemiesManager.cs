@@ -1,25 +1,12 @@
-﻿using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using MageVsMonsters.Models;
-using MageVsMonsters.Views;
-using MageVsMonsters.Views.Extensions;
-using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
 namespace MageVsMonsters.Managers
 {
     public class EnemiesManager : BaseManager<EnemiesManager>
     {
-        [SerializeField]
-        private EnemyView _enemyViewPrefab;
-        [SerializeField]
-        private int _enemiesCount;
-
-        public List<EnemyView> EnemyViewInstances = new List<EnemyView>();
-
         protected override async UniTask Initialize()
         {
-            InstantiateEnemies();
-
             IsInitialized = true;
         }
         protected override async UniTask UnInitialize()
@@ -32,16 +19,6 @@ namespace MageVsMonsters.Managers
         }
         protected override async UniTask UnSubscribe()
         {
-        }
-
-        private void InstantiateEnemies()
-        {
-            for (int i = 0; i < _enemiesCount; i++)
-            {
-                var enemyModel = new EnemyModel();
-                var enemyViewInstance = (EnemyView)this.InstantiateElement(enemyModel, _enemyViewPrefab);
-                EnemyViewInstances.Add(enemyViewInstance);
-            }
         }
     }
 }
