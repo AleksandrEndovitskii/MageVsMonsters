@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1455636073223765690}
   - component: {fileID: 1714348254600750455}
   m_Layer: 0
-  m_Name: PlayerManager
+  m_Name: PlayersManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11c2a16859343b3b2fef31d4f6f0b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerViewPrefab: {fileID: 6922053890706012445, guid: 8d6919077ef06e94cb380e1748975a09,
+  _viewPrefab: {fileID: 6922053890706012445, guid: 8d6919077ef06e94cb380e1748975a09,
     type: 3}
+  _instancesCount: 1
+  Instances: []

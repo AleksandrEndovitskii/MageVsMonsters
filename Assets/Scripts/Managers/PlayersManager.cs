@@ -3,11 +3,11 @@ using MageVsMonsters.Views;
 
 namespace MageVsMonsters.Managers
 {
-    public class EnemiesManager : CreaturesManager<EnemyView>
+    public class PlayersManager : CreaturesManager<PlayerView>
     {
         protected override CreatureModel CreateModel()
         {
-            var creatureModel = new EnemyModel(100);
+            var creatureModel = new PlayerModel(100);
             return creatureModel;
         }
     }
