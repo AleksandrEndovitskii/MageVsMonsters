@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections;
+using Cysharp.Threading.Tasks;
+using MageVsMonsters.Components.BaseComponents;
 using MageVsMonsters.Models;
 using MageVsMonsters.Views;
-using MageVsMonsters.Views.Extensions;
 using UnityEngine;
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
 namespace MageVsMonsters.Components.Shooting
 {
-    public class FirePointComponent : MonoBehaviour
+    public class FirePointComponent : BaseComponent
     {
 #pragma warning disable 0649
         [SerializeField]
@@ -20,13 +22,23 @@ namespace MageVsMonsters.Components.Shooting
 
         private Coroutine _shootingCoroutine;
 
-        private void Awake()
+        protected override async UniTask Initialize()
         {
             _projectileSpeed = 5f;
 
             _secondsCount = 1f;
 
             StartShooting();
+        }
+        protected override async UniTask UnInitialize()
+        {
+        }
+
+        protected override async UniTask Subscribe()
+        {
+        }
+        protected override async UniTask UnSubscribe()
+        {
         }
 
         public void StartShooting()
@@ -51,10 +63,11 @@ namespace MageVsMonsters.Components.Shooting
         {
             var projectileModel = new ProjectileModel();
             var projectileViewInstance = Instantiate(_projectileViewPrefab, this.gameObject.transform.position, this.gameObject.transform.rotation);
+            //var projectileViewInstance = Instantiate(_projectileViewPrefab); // TODO: set parent to ProjectilesManager.Instance.gameObject.transform
             projectileViewInstance.Model = projectileModel;
 
-            var bulletInstanceRigidbody = projectileViewInstance.GetComponent<Rigidbody>();
-            bulletInstanceRigidbody.AddForce(
+            var projectileInstanceRigidbody = projectileViewInstance.GetComponent<Rigidbody>();
+            projectileInstanceRigidbody.AddForce(
                 this.gameObject.transform.forward * _projectileSpeed,
                 ForceMode.Impulse);
         }
