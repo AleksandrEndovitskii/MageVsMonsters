@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using MageVsMonsters.Components.SpawnPoints;
+using MageVsMonsters.Views;
 using UnityEngine;
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
@@ -41,7 +42,19 @@ namespace MageVsMonsters.Managers
 
         public SpawnPointComponent GetSpawnPointComponent<T>()
         {
-            return _spawnPointComponentInstances[0];
+            SpawnPointComponent spawnPointComponentInstance = null;
+
+            // TODO: bad implementation - reimplement in future
+            if (typeof(T) == typeof(PlayerView))
+            {
+                spawnPointComponentInstance = _spawnPointComponentInstances[0];
+            }
+            if (typeof(T) == typeof(EnemyView))
+            {
+                spawnPointComponentInstance = _spawnPointComponentInstances[1];
+            }
+
+            return spawnPointComponentInstance;
         }
     }
 }
