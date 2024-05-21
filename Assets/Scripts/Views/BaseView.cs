@@ -4,10 +4,11 @@ using MageVsMonsters.Components.BaseComponents;
 using MageVsMonsters.Models;
 using Newtonsoft.Json;
 using UnityEngine;
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
 namespace MageVsMonsters.Views
 {
-    public class BaseView<T> : InitializableBaseMonoBehaviour, IView<T> where T : IModel
+    public class BaseView<T> : BaseComponent, IView<T> where T : IModel
     {
         public event Action<T> ModelChanged = delegate { };
         public T Model
