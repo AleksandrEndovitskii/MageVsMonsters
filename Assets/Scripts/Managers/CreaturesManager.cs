@@ -16,7 +16,7 @@ namespace MageVsMonsters.Managers
         [SerializeField]
         private T _viewPrefab;
         [SerializeField]
-        private int _instancesCount = 1;
+        private int _initialInstancesCount = 0;
 
         public List<T> Instances = new List<T>();
 
@@ -25,15 +25,15 @@ namespace MageVsMonsters.Managers
             await UniTask.WaitUntil(() => SpawnPointsManager.Instance != null &&
                                           SpawnPointsManager.Instance.IsInitialized);
 
-            for (int i = 0; i < _instancesCount; i++)
+            for (int i = 0; i < _initialInstancesCount; i++)
             {
-                var creatureModel = CreateModel();
-                var creatureViewInstance = (T)this.InstantiateElement(creatureModel, _viewPrefab, this.gameObject.transform);
-                var spawnPointComponent = SpawnPointsManager.Instance.GetSpawnPointComponent<T>();
+                var model = CreateModel();
+                var instance = (T)this.InstantiateElement(model, _viewPrefab, this.gameObject.transform);
                 // TODO: move to view
                 this.InvokeActionAfterFrames(() =>
                 {
-                    creatureViewInstance.transform.position = spawnPointComponent.transform.position;
+                    var spawnPointComponent = SpawnPointsManager.Instance.GetSpawnPointComponent<T>();
+                    instance.transform.position = spawnPointComponent.transform.position;
                 }, 1);
             }
 
@@ -51,19 +51,19 @@ namespace MageVsMonsters.Managers
         {
         }
 
-        public void Register(T creatureViewInstance)
+        public void Register(T instance)
         {
             Debug.Log($"{this.GetType().Name}.{ReflectionHelper.GetCallerMemberName()}"
-                      + $"\n{nameof(creatureViewInstance)}.{nameof(creatureViewInstance.Model)} == {JsonConvert.SerializeObject(creatureViewInstance.Model)}");
+                      + $"\n{nameof(instance)}.{nameof(instance.Model)} == {JsonConvert.SerializeObject(instance.Model)}");
 
-            Instances.Add(creatureViewInstance);
+            Instances.Add(instance);
         }
-        public void UnRegister(T creatureViewInstance)
+        public void UnRegister(T instance)
         {
             Debug.Log($"{this.GetType().Name}.{ReflectionHelper.GetCallerMemberName()}"
-                      + $"\n{nameof(creatureViewInstance)}.{nameof(creatureViewInstance.Model)} == {JsonConvert.SerializeObject(creatureViewInstance.Model)}");
+                      + $"\n{nameof(instance)}.{nameof(instance.Model)} == {JsonConvert.SerializeObject(instance.Model)}");
 
-            Instances.Remove(creatureViewInstance);
+            Instances.Remove(instance);
         }
 
         protected abstract CreatureModel CreateModel();

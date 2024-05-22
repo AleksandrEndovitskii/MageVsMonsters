@@ -1,4 +1,4 @@
-﻿using MageVsMonsters.Models;
+using MageVsMonsters.Models;
 using UnityEngine;
 
 namespace MageVsMonsters.Views
