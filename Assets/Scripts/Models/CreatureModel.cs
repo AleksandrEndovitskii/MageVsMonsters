@@ -122,12 +122,12 @@ namespace MageVsMonsters.Models
         }
         private bool _isAlive;
 
-        public CreatureModel()
+        private CreatureModel()
         {
             HealthChanged += OnHealthChanged;
             OnHealthChanged(Health);
         }
-        public CreatureModel(int maxHealth) :
+        private CreatureModel(int maxHealth) :
             this()
         {
             MaxHealth = maxHealth;
@@ -139,12 +139,6 @@ namespace MageVsMonsters.Models
             Damage = damage;
             Defense = defense;
             MovementSpeed = movementSpeed;
-        }
-        public CreatureModel(int maxHealth, int currentHealth) :
-            this()
-        {
-            MaxHealth = maxHealth;
-            Health = currentHealth;
         }
 
         private void OnHealthChanged(int health)
