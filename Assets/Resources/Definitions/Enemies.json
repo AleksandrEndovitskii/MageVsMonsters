@@ -1,0 +1,51 @@
+[
+  {
+    "MaxHealth": 200,
+    "Damage": 20,
+    "Defense": 10,
+    "MovementSpeed": 2.0,
+    "Rarity": "Trash"
+  },
+  {
+    "MaxHealth": 300,
+    "Damage": 30,
+    "Defense": 15,
+    "MovementSpeed": 3.0,
+    "Rarity": "Common"
+  },
+  {
+    "MaxHealth": 400,
+    "Damage": 40,
+    "Defense": 20,
+    "MovementSpeed": 4.0,
+    "Rarity": "Uncommon"
+  },
+  {
+    "MaxHealth": 500,
+    "Damage": 50,
+    "Defense": 25,
+    "MovementSpeed": 5.0,
+    "Rarity": "Rare"
+  },
+  {
+    "MaxHealth": 600,
+    "Damage": 60,
+    "Defense": 30,
+    "MovementSpeed": 6.0,
+    "Rarity": "Epic"
+  },
+  {
+    "MaxHealth": 700,
+    "Damage": 70,
+    "Defense": 35,
+    "MovementSpeed": 7.0,
+    "Rarity": "Legendary"
+  },
+  {
+    "MaxHealth": 800,
+    "Damage": 80,
+    "Defense": 40,
+    "MovementSpeed": 8.0,
+    "Rarity": "Mythical"
+  }
+]

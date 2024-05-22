@@ -1,5 +1,8 @@
 using System;
 using MageVsMonsters.Helpers;
+using MageVsMonsters.JsonObjects;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using UnityEngine;
 
 namespace MageVsMonsters.Models
@@ -101,6 +104,26 @@ namespace MageVsMonsters.Models
             }
         }
         private float _movementSpeed;
+        public event Action<Rarity> RarityChanged = delegate {};
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Rarity Rarity
+        {
+            get => _rarity;
+            protected set
+            {
+                if (_rarity == value)
+                {
+                    return;
+                }
+
+                Debug.Log($"{this.GetType().Name}.{ReflectionHelper.GetCallerMemberName()}" +
+                          $"\n{_rarity} -> {value}");
+                _rarity = value;
+
+                RarityChanged.Invoke(_rarity);
+            }
+        }
+        private Rarity _rarity;
 
         public event Action<bool> IsAliveChanged = delegate {};
         public bool IsAlive
@@ -122,12 +145,12 @@ namespace MageVsMonsters.Models
         }
         private bool _isAlive;
 
-        private CreatureModel()
+        public CreatureModel()
         {
             HealthChanged += OnHealthChanged;
             OnHealthChanged(Health);
         }
-        private CreatureModel(int maxHealth) :
+        public CreatureModel(int maxHealth) :
             this()
         {
             MaxHealth = maxHealth;
@@ -139,6 +162,14 @@ namespace MageVsMonsters.Models
             Damage = damage;
             Defense = defense;
             MovementSpeed = movementSpeed;
+        }
+        public CreatureModel(CreatureDefinitionJsonObject creatureDefinitionJsonObject) :
+            this(creatureDefinitionJsonObject.MaxHealth)
+        {
+            Damage = creatureDefinitionJsonObject.Damage;
+            Defense = creatureDefinitionJsonObject.Defense;
+            MovementSpeed = creatureDefinitionJsonObject.MovementSpeed;
+            Rarity = creatureDefinitionJsonObject.Rarity;
         }
 
         private void OnHealthChanged(int health)
