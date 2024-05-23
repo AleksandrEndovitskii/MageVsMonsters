@@ -24,7 +24,7 @@ namespace MageVsMonsters.Managers
         protected abstract string DefinitionPath { get; }
         protected abstract string PrefabsPath { get; }
 
-        private List<CreatureDefinitionJsonObject> _definitionJsonObjects = new List<CreatureDefinitionJsonObject>();
+        protected List<CreatureDefinitionJsonObject> _definitionJsonObjects = new List<CreatureDefinitionJsonObject>();
 
         protected override async UniTask Initialize()
         {
@@ -77,6 +77,11 @@ namespace MageVsMonsters.Managers
             Instances.Remove(instance);
         }
 
+        private CreatureModel CreateModel()
+        {
+            var creatureModel = GetRandomModel();
+            return creatureModel;
+        }
         private CreatureModel GetRandomModel()
         {
             var randomValue = Random.Range(0, 100);
@@ -85,17 +90,12 @@ namespace MageVsMonsters.Managers
 
             return result;
         }
-        private CreatureModel GetModel(Rarity rarity)
+        protected virtual CreatureModel GetModel(Rarity rarity)
         {
             var definitionJsonObject = _definitionJsonObjects.FirstOrDefault(em => em.Rarity == rarity);
             var model = new CreatureModel(definitionJsonObject);
 
             return model;
-        }
-        private CreatureModel CreateModel()
-        {
-            var creatureModel = GetRandomModel();
-            return creatureModel;
         }
     }
 }
