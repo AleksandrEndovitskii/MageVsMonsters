@@ -68,14 +68,29 @@ namespace MageVsMonsters.Managers
             enemyView.Model.Health -= projectileView.Model.Damage;
             Destroy(projectileView.gameObject);
         }
+        private void TryHandleEnemyPlayerCollisionEnter(IBaseView baseView1, IBaseView baseView2)
+        {
+            var enemyView = baseView1 as EnemyView;
+            var playerView = baseView2 as PlayerView;
+
+            if (enemyView == null ||
+                playerView == null)
+            {
+                return;
+            }
+
+            playerView.Model.Health -= enemyView.Model.Damage;
+        }
 
         private void CollisionHandlingManager_TriggerEnter(IBaseView baseView1, IBaseView baseView2)
         {
             TryHandleProjectileCreatureCollisionEnter(baseView1, baseView2);
+            TryHandleEnemyPlayerCollisionEnter(baseView1, baseView2);
         }
         private void CollisionHandlingManager_CollisionEnter(IBaseView baseView1, IBaseView baseView2)
         {
             TryHandleProjectileCreatureCollisionEnter(baseView1, baseView2);
+            TryHandleEnemyPlayerCollisionEnter(baseView1, baseView2);
         }
     }
 }
