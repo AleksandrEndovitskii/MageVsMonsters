@@ -156,13 +156,6 @@ namespace MageVsMonsters.Models
             MaxHealth = maxHealth;
             Health = MaxHealth;
         }
-        public CreatureModel(int maxHealth, int damage, int defense, float movementSpeed) :
-            this(maxHealth)
-        {
-            Damage = damage;
-            Defense = defense;
-            MovementSpeed = movementSpeed;
-        }
         public CreatureModel(CreatureDefinitionJsonObject creatureDefinitionJsonObject) :
             this(creatureDefinitionJsonObject.MaxHealth)
         {

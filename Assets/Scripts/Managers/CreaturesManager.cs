@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using MageVsMonsters.Extensions;
 using MageVsMonsters.Helpers;
+using MageVsMonsters.JsonObjects;
 using MageVsMonsters.Models;
 using MageVsMonsters.Views;
 using MageVsMonsters.Views.Extensions;
@@ -14,21 +17,29 @@ namespace MageVsMonsters.Managers
     public abstract class CreaturesManager<T> : BaseManager<CreaturesManager<T>> where T : CreatureView
     {
         [SerializeField]
-        private T _viewPrefab;
-        [SerializeField]
         private int _initialInstancesCount = 0;
 
         public List<T> Instances = new List<T>();
 
+        protected abstract string DefinitionPath { get; }
+        protected abstract string PrefabsPath { get; }
+
+        private List<CreatureDefinitionJsonObject> _definitionJsonObjects = new List<CreatureDefinitionJsonObject>();
+
         protected override async UniTask Initialize()
         {
+            var definitionsJson = ResourcesHelper.LoadFromJsonInResources<string>(DefinitionPath);
+            _definitionJsonObjects = JsonConvert.DeserializeObject<List<CreatureDefinitionJsonObject>>(definitionsJson);
+
             await UniTask.WaitUntil(() => SpawnPointsManager.Instance != null &&
                                           SpawnPointsManager.Instance.IsInitialized);
 
             for (int i = 0; i < _initialInstancesCount; i++)
             {
                 var model = CreateModel();
-                var instance = (T)this.InstantiateElement(model, _viewPrefab, this.gameObject.transform);
+                var prefabPath = Path.Combine(PrefabsPath, model.Rarity.ToString());
+                var prefab = Resources.Load<T>(prefabPath);
+                var instance = (T)this.InstantiateElement(model, prefab, this.gameObject.transform);
                 // TODO: move to view
                 this.InvokeActionAfterFrames(() =>
                 {
@@ -66,6 +77,25 @@ namespace MageVsMonsters.Managers
             Instances.Remove(instance);
         }
 
-        protected abstract CreatureModel CreateModel();
+        private CreatureModel GetRandomModel()
+        {
+            var randomValue = Random.Range(0, 100);
+            var rarity = RarityHelper.GetRarity(randomValue);
+            var result = GetModel(rarity);
+
+            return result;
+        }
+        private CreatureModel GetModel(Rarity rarity)
+        {
+            var definitionJsonObject = _definitionJsonObjects.FirstOrDefault(em => em.Rarity == rarity);
+            var model = new CreatureModel(definitionJsonObject);
+
+            return model;
+        }
+        private CreatureModel CreateModel()
+        {
+            var creatureModel = GetRandomModel();
+            return creatureModel;
+        }
     }
 }
