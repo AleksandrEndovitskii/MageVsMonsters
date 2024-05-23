@@ -1,17 +1,21 @@
-using System;
 using Cysharp.Threading.Tasks;
-using MageVsMonsters.Managers;
 using UnityEngine;
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
-namespace MageVsMonsters
+namespace MageVsMonsters.Managers
 {
-    public class InputManager : BaseManager<InputManager>
+    public class TerrainManager : BaseManager<TerrainManager>
     {
-        public event Action<KeyCode> KeyPressed = delegate {};
+        [SerializeField]
+        private Terrain _terrainPrefab;
+        [SerializeField]
+        private Terrain _terrainInstance;
 
         protected override async UniTask Initialize()
         {
+            //_terrainInstance = Instantiate(_terrainPrefab);
+            _terrainInstance = FindFirstObjectByType<Terrain>();
+
             IsInitialized = true;
         }
         protected override async UniTask UnInitialize()
@@ -24,15 +28,6 @@ namespace MageVsMonsters
         }
         protected override async UniTask UnSubscribe()
         {
-        }
-
-        // TODO: temp solution - reimplement through InputSystem
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                KeyPressed.Invoke(KeyCode.X);
-            }
         }
     }
 }

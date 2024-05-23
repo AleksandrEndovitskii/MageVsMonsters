@@ -103,8 +103,8 @@ namespace MageVsMonsters.Managers
             // TODO: move to view
             this.InvokeActionAfterFrames(() =>
             {
-                var spawnPointComponent = SpawnPointsManager.Instance.GetSpawnPointComponent<T>();
-                instance.transform.position = spawnPointComponent.transform.position;
+                var spawnPointPosition = SpawnPointsManager.Instance.GetSpawnPointPosition<T>();
+                instance.transform.position = spawnPointPosition;
             }, 1);
         }
 
