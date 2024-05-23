@@ -1,0 +1,9 @@
+[
+  {
+    "MaxHealth": 200,
+    "Damage": 20,
+    "Defense": 10,
+    "MovementSpeed": 2.0,
+    "Rarity": "Trash"
+  }
+]
