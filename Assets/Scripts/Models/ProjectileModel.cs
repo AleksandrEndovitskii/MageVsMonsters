@@ -5,7 +5,7 @@ namespace MageVsMonsters.Models
         public int Damage
         {
             get;
-            set;
+            private set;
         }
 
         public ProjectileModel()
