@@ -32,7 +32,7 @@ namespace MageVsMonsters.Models
         public int Health
         {
             get => _health;
-            set
+            protected set
             {
                 if (_health == value)
                 {
@@ -163,6 +163,12 @@ namespace MageVsMonsters.Models
             Defense = creatureDefinitionJsonObject.Defense;
             MovementSpeed = creatureDefinitionJsonObject.MovementSpeed;
             Rarity = creatureDefinitionJsonObject.Rarity;
+        }
+
+        public void DoDamage(int damage)
+        {
+            // health=health-damage*defense(0...1)
+            Health -= (int)(damage * (1 - Defense / 100f));
         }
 
         private void OnHealthChanged(int health)

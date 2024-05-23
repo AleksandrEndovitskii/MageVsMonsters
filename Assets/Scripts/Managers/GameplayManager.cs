@@ -65,7 +65,7 @@ namespace MageVsMonsters.Managers
                 return;
             }
 
-            enemyView.Model.Health -= projectileView.Model.Damage;
+            enemyView.Model.DoDamage(projectileView.Model.Damage);
             Destroy(projectileView.gameObject);
         }
         private void TryHandleEnemyPlayerCollisionEnter(IBaseView baseView1, IBaseView baseView2)
@@ -79,7 +79,7 @@ namespace MageVsMonsters.Managers
                 return;
             }
 
-            playerView.Model.Health -= enemyView.Model.Damage;
+            playerView.Model.DoDamage(enemyView.Model.Damage);
         }
 
         private void CollisionHandlingManager_TriggerEnter(IBaseView baseView1, IBaseView baseView2)
