@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "FireBall",
+    "Damage": 20
+  },
+  {
+    "Name": "FrostBolt",
+    "Damage": 10
+  },
+  {
+    "Name": "LightningBolt",
+    "Damage": 5
+  }
+]
