@@ -50,13 +50,13 @@ namespace MageVsMonsters.Managers
             {
                 // TODO: temp solution - cast spell from the first player
                 var playerView = PlayersManager.Instance.Instances[0];
-                ProjectilesManager.Instance.CastSpell(null, playerView, null);
+                SpellsManager.Instance.CastSpell(null, playerView, null);
             }
         }
 
         private void TryHandleProjectileCreatureCollisionEnter(IBaseView baseView1, IBaseView baseView2)
         {
-            var projectileView = baseView1 as ProjectileView;
+            var projectileView = baseView1 as SpellView;
             var enemyView = baseView2 as EnemyView;
 
             if (projectileView == null ||

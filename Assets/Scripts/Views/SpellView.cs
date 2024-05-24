@@ -4,7 +4,7 @@ using UnityEngine;
 namespace MageVsMonsters.Views
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class ProjectileView : BaseView<ProjectileModel>
+    public class SpellView : BaseView<SpellModel>
     {
     }
 }

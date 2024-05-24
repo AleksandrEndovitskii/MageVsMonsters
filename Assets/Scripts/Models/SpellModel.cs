@@ -1,6 +1,6 @@
 namespace MageVsMonsters.Models
 {
-    public class ProjectileModel : IModel
+    public class SpellModel : IModel
     {
         public int Damage
         {
@@ -8,11 +8,11 @@ namespace MageVsMonsters.Models
             private set;
         }
 
-        public ProjectileModel()
+        public SpellModel()
         {
             Damage = 0;
         }
-        public ProjectileModel(int damage) :
+        public SpellModel(int damage) :
             this()
         {
             Damage = damage;

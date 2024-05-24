@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e960031400da46b0a8cfd8166f855545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spellViewPrefab: {fileID: 2538363748119811919, guid: 3101e11195ba36c44963d0c544782e2a,
+    type: 3}

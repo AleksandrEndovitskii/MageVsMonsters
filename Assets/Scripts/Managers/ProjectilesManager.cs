@@ -15,11 +15,7 @@ namespace MageVsMonsters.Managers
     {
 #pragma warning disable 0649
         [SerializeField]
-        private ProjectileView _projectileViewPrefab;
-        [SerializeField]
         private float _projectileSpeed = 5f;
-        [SerializeField]
-        private int _projectileDamage = 10;
 #pragma warning restore 0649
 
         public List<FirePointView> Instances = new List<FirePointView>();
@@ -56,12 +52,8 @@ namespace MageVsMonsters.Managers
             Instances.Remove(viewInstance);
         }
 
-        public void CastSpell(GameObject spell, CreatureView sourceCreatureView, CreatureView targetCreatureView)
+        public void SendProjectile(MonoBehaviour projectileViewInstance, CreatureView sourceCreatureView, CreatureView targetCreatureView)
         {
-            // instantiate projectile
-            var projectileModel = new ProjectileModel(_projectileDamage);
-            var projectileViewInstance = (ProjectileView)this.InstantiateElement(projectileModel, _projectileViewPrefab, this.gameObject.transform);
-
             var firePointView = Instances.FirstOrDefault(x =>
                 x.Model.CreatureViewModel == sourceCreatureView.Model);
             if (firePointView == null)
