@@ -1,6 +1,8 @@
 using System;
 using MageVsMonsters.Helpers;
+using MageVsMonsters.JsonObjects;
 using UnityEngine;
+
 namespace MageVsMonsters.Models
 {
     public class SpellModel : IModel
@@ -47,11 +49,17 @@ namespace MageVsMonsters.Models
         public SpellModel()
         {
         }
-        public SpellModel(string name, int damage) :
-            this()
+        public SpellModel(SpellDefinitionJsonObject definitionJsonObject)
+            : this()
         {
-            Name = name;
-            Damage = damage;
+            Name = definitionJsonObject.Name;
+            Damage = definitionJsonObject.Damage;
+        }
+        public SpellModel(SpellModel spellModel)
+            : this()
+        {
+            Name = spellModel.Name;
+            Damage = spellModel.Damage;
         }
     }
 }

@@ -2,9 +2,7 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using MageVsMonsters.Helpers;
-using MageVsMonsters.Models;
 using MageVsMonsters.Views;
-using MageVsMonsters.Views.Extensions;
 using Newtonsoft.Json;
 using UnityEngine;
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
@@ -13,6 +11,7 @@ namespace MageVsMonsters.Managers
 {
     public class ProjectilesManager : BaseManager<ProjectilesManager>
     {
+        // TODO: temp solution - get this data from model
 #pragma warning disable 0649
         [SerializeField]
         private float _projectileSpeed = 5f;

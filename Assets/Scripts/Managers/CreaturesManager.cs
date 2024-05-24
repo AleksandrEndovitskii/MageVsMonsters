@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using MageVsMonsters.Extensions;
@@ -46,12 +45,13 @@ namespace MageVsMonsters.Managers
         protected abstract string DefinitionPath { get; }
         protected abstract string PrefabsPath { get; }
 
-        protected List<CreatureDefinitionJsonObject> _definitionJsonObjects = new List<CreatureDefinitionJsonObject>();
+        protected List<CreatureDefinitionJsonObject> _definitionJsonObjects;
+        private Dictionary<string, T> _namePrefabs;
 
         protected override async UniTask Initialize()
         {
-            var definitionsJson = ResourcesHelper.LoadFromJsonInResources<string>(DefinitionPath);
-            _definitionJsonObjects = JsonConvert.DeserializeObject<List<CreatureDefinitionJsonObject>>(definitionsJson);
+            _definitionJsonObjects = DefinitionsHelper.GetDefinitions<CreatureDefinitionJsonObject>(DefinitionPath);
+            _namePrefabs = PrefabsHelper.LoadPrefabsAsDictionary<T>(PrefabsPath);
 
             await UniTask.WaitUntil(() => SpawnPointsManager.Instance != null &&
                                           SpawnPointsManager.Instance.IsInitialized);
@@ -97,8 +97,8 @@ namespace MageVsMonsters.Managers
         protected void Spawn()
         {
             var model = CreateModel();
-            var prefabPath = Path.Combine(PrefabsPath, model.Rarity.ToString());
-            var prefab = Resources.Load<T>(prefabPath);
+            var prefabName = model.Rarity.ToString();
+            var prefab = _namePrefabs[prefabName];
             var instance = (T)this.InstantiateElement(model, prefab, this.gameObject.transform);
             // TODO: move to view
             this.InvokeActionAfterFrames(() =>

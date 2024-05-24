@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Cysharp.Threading.Tasks;
 using MageVsMonsters.Helpers;
+using MageVsMonsters.JsonObjects;
 using MageVsMonsters.Models;
 using MageVsMonsters.Views;
 using MageVsMonsters.Views.Extensions;
@@ -13,9 +15,6 @@ namespace MageVsMonsters.Managers
 {
     public class SpellsManager : BaseManager<SpellsManager>
     {
-        [SerializeField]
-        private SpellView _spellViewPrefab;
-
         public event Action<SpellModel> CurrentSpellChanged = delegate { };
         public SpellModel CurrentSpell
         {
@@ -36,17 +35,23 @@ namespace MageVsMonsters.Managers
         }
         private SpellModel _currentSpell;
 
+        protected string DefinitionPath { get; } = Path.Combine("Definitions", "Spells");
+        protected string PrefabsPath { get; } = Path.Combine("Prefabs", "GameObjects", "Spells");
+
+        private List<SpellDefinitionJsonObject> _definitionJsonObjects;
+        private Dictionary<string, SpellView> _namePrefabs;
         private List<SpellModel> _spellModels;
 
         protected override async UniTask Initialize()
         {
-            // TODO: temp solution - use definitions from JSON
-            _spellModels = new List<SpellModel>
+            _definitionJsonObjects = DefinitionsHelper.GetDefinitions<SpellDefinitionJsonObject>(DefinitionPath);
+            _namePrefabs = PrefabsHelper.LoadPrefabsAsDictionary<SpellView>(PrefabsPath);
+
+            _spellModels = new List<SpellModel>();
+            foreach (var definitionJsonObject in _definitionJsonObjects)
             {
-                new SpellModel("FireBall", 20),
-                new SpellModel("FrostBolt", 10),
-                new SpellModel("LightningBolt", 5),
-            };
+                _spellModels.Add(new SpellModel(definitionJsonObject));
+            }
             CurrentSpell = _spellModels[0];
 
             IsInitialized = true;
@@ -84,10 +89,11 @@ namespace MageVsMonsters.Managers
             CurrentSpell = _spellModels[previousSpellIndex];
         }
 
-        public void CastSpell(SpellModel spellModel = null, CreatureView sourceCreatureView = null, CreatureView targetCreatureView = null)
+        public void CastSpell(CreatureView sourceCreatureView = null, CreatureView targetCreatureView = null)
         {
-            spellModel = new SpellModel(CurrentSpell.Name, CurrentSpell.Damage);
-            var spellViewInstance = this.InstantiateElement(spellModel, _spellViewPrefab, this.gameObject.transform);
+            var spellModel = new SpellModel(CurrentSpell);
+            var spellViewPrefab = _namePrefabs[spellModel.Name];
+            var spellViewInstance = this.InstantiateElement(spellModel, spellViewPrefab, this.gameObject.transform);
             ProjectilesManager.Instance.SendProjectile(spellViewInstance, sourceCreatureView, targetCreatureView);
         }
     }

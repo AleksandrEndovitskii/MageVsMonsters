@@ -87,7 +87,7 @@ namespace MageVsMonsters.Managers
             {
                 // TODO: temp solution - cast spell from the first player
                 var playerView = PlayersManager.Instance.Instances[0];
-                SpellsManager.Instance.CastSpell(null, playerView, null);
+                SpellsManager.Instance.CastSpell(playerView, null);
             }
             if (keyCode == _switchToNextSpellKey)
             {
