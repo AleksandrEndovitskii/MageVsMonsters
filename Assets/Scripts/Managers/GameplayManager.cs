@@ -8,7 +8,11 @@ namespace MageVsMonsters.Managers
     public class GameplayManager : BaseManager<GameplayManager>
     {
         [SerializeField]
-        private KeyCode _spellKey = KeyCode.X;
+        private KeyCode _castSpellKey = KeyCode.X;
+        [SerializeField]
+        private KeyCode _switchToNextSpellKey = KeyCode.E;
+        [SerializeField]
+        private KeyCode _switchToPreviousSpellKey = KeyCode.Q;
 
         protected override async UniTask Initialize()
         {
@@ -46,12 +50,7 @@ namespace MageVsMonsters.Managers
 
         private void InputManager_KeyPressed(KeyCode keyCode)
         {
-            if (keyCode == _spellKey)
-            {
-                // TODO: temp solution - cast spell from the first player
-                var playerView = PlayersManager.Instance.Instances[0];
-                SpellsManager.Instance.CastSpell(null, playerView, null);
-            }
+            HandleKeyPressed(keyCode);
         }
 
         private void TryHandleProjectileCreatureCollisionEnter(IBaseView baseView1, IBaseView baseView2)
@@ -80,6 +79,24 @@ namespace MageVsMonsters.Managers
             }
 
             playerView.Model.DoDamage(enemyView.Model.Damage);
+        }
+
+        private void HandleKeyPressed(KeyCode keyCode)
+        {
+            if (keyCode == _castSpellKey)
+            {
+                // TODO: temp solution - cast spell from the first player
+                var playerView = PlayersManager.Instance.Instances[0];
+                SpellsManager.Instance.CastSpell(null, playerView, null);
+            }
+            if (keyCode == _switchToNextSpellKey)
+            {
+                SpellsManager.Instance.SwitchToNextSpell();
+            }
+            if (keyCode == _switchToPreviousSpellKey)
+            {
+                SpellsManager.Instance.SwitchToPreviousSpell();
+            }
         }
 
         private void CollisionHandlingManager_TriggerEnter(IBaseView baseView1, IBaseView baseView2)

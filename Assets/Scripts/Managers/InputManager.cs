@@ -28,9 +28,18 @@ namespace MageVsMonsters.Managers
         // TODO: temp solution - reimplement through InputSystem
         private void Update()
         {
+            // TODO: temp solution - reimplement through new InputSystem
             if (Input.GetKeyDown(KeyCode.X))
             {
                 KeyPressed.Invoke(KeyCode.X);
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                KeyPressed.Invoke(KeyCode.E);
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                KeyPressed.Invoke(KeyCode.Q);
             }
         }
     }
