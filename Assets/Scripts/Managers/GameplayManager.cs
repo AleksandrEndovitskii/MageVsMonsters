@@ -53,18 +53,20 @@ namespace MageVsMonsters.Managers
             HandleKeyPressed(keyCode);
         }
 
-        private void TryHandleProjectileCreatureCollisionEnter(IBaseView baseView1, IBaseView baseView2)
+        private void TryHandleProjectileCollisionEnter(IBaseView baseView1, IBaseView baseView2)
         {
             var projectileView = baseView1 as SpellView;
-            var enemyView = baseView2 as EnemyView;
-
-            if (projectileView == null ||
-                enemyView == null)
+            if (projectileView == null)
             {
                 return;
             }
 
-            enemyView.Model.DoDamage(projectileView.Model.Damage);
+            var enemyView = baseView2 as EnemyView;
+            if (enemyView != null)
+            {
+                enemyView.Model.DoDamage(projectileView.Model.Damage);
+            }
+
             Destroy(projectileView.gameObject);
         }
         private void TryHandleEnemyPlayerCollisionEnter(IBaseView baseView1, IBaseView baseView2)
@@ -101,12 +103,12 @@ namespace MageVsMonsters.Managers
 
         private void CollisionHandlingManager_TriggerEnter(IBaseView baseView1, IBaseView baseView2)
         {
-            TryHandleProjectileCreatureCollisionEnter(baseView1, baseView2);
+            TryHandleProjectileCollisionEnter(baseView1, baseView2);
             TryHandleEnemyPlayerCollisionEnter(baseView1, baseView2);
         }
         private void CollisionHandlingManager_CollisionEnter(IBaseView baseView1, IBaseView baseView2)
         {
-            TryHandleProjectileCreatureCollisionEnter(baseView1, baseView2);
+            TryHandleProjectileCollisionEnter(baseView1, baseView2);
             TryHandleEnemyPlayerCollisionEnter(baseView1, baseView2);
         }
     }
