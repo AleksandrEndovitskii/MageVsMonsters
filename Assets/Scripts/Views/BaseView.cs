@@ -38,7 +38,6 @@ namespace MageVsMonsters.Views
         protected override async UniTask Initialize()
         {
         }
-
         protected override async UniTask UnInitialize()
         {
         }
@@ -46,7 +45,6 @@ namespace MageVsMonsters.Views
         protected override async UniTask Subscribe()
         {
         }
-
         protected override async UniTask UnSubscribe()
         {
         }
